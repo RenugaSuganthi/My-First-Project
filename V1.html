@@ -124,9 +124,7 @@
                     case "Tirupur":
                         recommendation = getTirupurRecommendation(choice.value);
                         break;
-                    case "Coimbatore":
-                        recommendation = getCoimbatoreRecommendation(choice.value);
-                        break;
+               
                     case "Erode":
                         recommendation = getErodeRecommendation(choice.value);
                         break;
@@ -344,62 +342,7 @@
 					break;
             }
         }
-		function getCoimbatoreRecommendation(choice) {
-            switch (choice) {
-                case "park":
-                    return "<div class='card-container'>" +
-                        "<div class='card'>" +
-                        "<h4>Shanthi Social service Park</h4>" +
-                        "<img src='shan.jpg' alt='Shanthi Social service Park'>" +
-                        "<p>Location: <a href='https://maps.google.com/?q=Shanthi Social service Park,Coimbatore' target='_blank'>Neelikonampalayam, Coimbatore</a></p>" +
-						"<a href='http://shanthisocialservices.org/about.html#:~:text=From%201987%2C%20he%20also%20focused,best%20and%20befitting%20manner%20by' target='_blank'>more about this...</a>"+
-                        "</div>" +
-                        "<div class='card'>" +
-                        "<h4>OxyZone Adventure Park</h4>" +
-                        "<img src='ozo.jpg' alt='OxyZone Adventure Park'>" +
-                        "<p>Location: <a href='https://maps.google.com/?q=OxyZone Adventure Park,Coimbatore' target='_blank'>Peelamedu, Coimbatore</a></p>" +
-						"<a href='https://www.theoxyzone.com/' target='_blank'>more about this...</a>"+
-                        "</div>" +
-						"<div class='card'>" +
-                        "<h4>Kovai Kondattam Amusement</h4>" +
-                        "<img src='kovai.jpg' alt='Kovai Kondattam Amusement'>" +
-                        "<p>Location: <a href='https://maps.google.com/?q=Kovai Kondattam Amusement Park,Coimbatore' target='_blank'>Kalampalayam, Coimbatore</a></p>" +
-						"<a href='https://www.kovaikondattam.com/' target='_blank'>more about this...</a>"+
-                        "</div>" +
-						
-                        "</div>";
-						
-						break;
-				case "dam":
-                    return "<div class='card-container'>" +
-                        "<div class='card'>" +
-                        "<h4>Aliyar Dam</h4>" +
-                        "<img src='ali.jpg' alt='Aliyar Dam'>" +
-                        "<p>Location: <a href='https://maps.google.com/?q=Aliyar Dam, Coimbatore' target='_blank'>Aliyar, Coimbatore</a></p>" +
-						"<a href='https://en.wikipedia.org/wiki/Aliyar_Reservoir' target='_blank'>more about this...</a>"+
-                        "</div>" +
-                        "<div class='card'>" +
-                        "<h4>OxyZone Adventure Park</h4>" +
-                        "<img src='ozo.jpg' alt='OxyZone Adventure Park'>" +
-                        "<p>Location: <a href='https://maps.google.com/?q=OxyZone Adventure Park,Coimbatore' target='_blank'>Peelamedu, Coimbatore</a></p>" +
-						"<a href='https://www.theoxyzone.com/' target='_blank'>more about this...</a>"+
-                        "</div>" +
-						"<div class='card'>" +
-                        "<h4>Kovai Kondattam Amusement</h4>" +
-                        "<img src='kovai.jpg' alt='Kovai Kondattam Amusement'>" +
-                        "<p>Location: <a href='https://maps.google.com/?q=Kovai Kondattam Amusement Park,Coimbatore' target='_blank'>Kalampalayam, Coimbatore</a></p>" +
-						"<a href='https://www.kovaikondattam.com/' target='_blank'>more about this...</a>"+
-                        "</div>" +
-						
-                        "</div>";
-						
-						break;
-						
-				default:
-                    return "Please select a preference.";
-					
-					break;
-			}
+		
 		}
     </script>
 
