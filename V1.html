@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Choice - Vacation Spot Recommender</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 25px;
+            background-color: #f9f9f9;
+            background-image: url('b2.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            margin: 50px;
+            text-align: center;
+        }
+        .centerimage {
+            width: 100px;
+            height: 100px;
+            margin-top: -3px; 
+        }        
+        .card-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .card {
+            flex: 0 0 auto;
+            background-color: #ffffff;
+            font-size: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px; /* Fixed width for each card */
+        }
+        .card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        .nearby-label {
+            font-size: 18px;
+            color: #777777;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #006064;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #e65100;
+        }
+        select {
+            max-width: 300px;
+            margin: 0 auto;
+            padding: 10px;
+			font-size: 18px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .map-container {
+            width: 100%;
+            margin-top: 20px;
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 480px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <img src="l4.png" class="centerimage" alt="Logo Image">
+    <h1 style="font-size: 35px;"><b>Your Destination</b></h1>
+
+    <form id="billForm">
+        <label for="dis"><span style="font-weight: bold;">District:</span></label>
+        <select id="dis" required>
+            <option value="select" hidden>Select</option>
+            <option value="Tirupur">Tirupur</option>
+            <option value="Erode">Erode</option>
+           
+        </select>
+    </form><br>
+    <label>
+        <input type="radio" name="choice" value="park"> Park
+    </label>
+    <label>
+        <input type="radio" name="choice" value="dam"> Dam
+    </label>
+    <label>
+        <input type="radio" name="choice" value="waterfalls"> Waterfalls
+    </label>
+    <label>
+        <input type="radio" name="choice" value="temple"> Temple
+    </label>
+    <br><br>
+    <button onclick="recommendSpot()">Get Recommendation</button>
+    <br> <br>
+    <div id="result" class="card-container"></div>
+
+    <div class="map-container" id="map"></div>
+
+    <script>
+        function recommendSpot() {
+            const district = document.getElementById("dis").value;
+            const choice = document.querySelector('input[name="choice"]:checked');
+            let recommendation = "";
+
+            if (!district || !choice) {
+                recommendation = "Please select a district and a preference.";
+            } else {
+                switch (district) {
+                    case "Tirupur":
+                        recommendation = getTirupurRecommendation(choice.value);
+                        break;
+                    case "Coimbatore":
+                        recommendation = getCoimbatoreRecommendation(choice.value);
+                        break;
+                    case "Erode":
+                        recommendation = getErodeRecommendation(choice.value);
+                        break;
+                    default:
+                        recommendation = "District not supported.";
+                        break;
+                }
+            }
+
+            document.getElementById("result").innerHTML = recommendation;
+
+            if (district === "Tirupur" && choice.value === "park") {
+                document.getElementById("map").innerHTML = "<iframe src='https://www.google.com/maps/d/u/0/embed?mid=12GMmUkSZtmzea1O9ykKP57l1Xd5e9cI&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>";
+            }
+			else if (district === "Tirupur" && choice.value === "dam") {
+                document.getElementById("map").innerHTML = "<iframe src='https://www.google.com/maps/d/u/0/embed?mid=19nq1jiRthYtdCVxY5MOhylVmDQPG80M&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>";
+            }
+			else if (district === "Tirupur" && choice.value === "temple") {
+                document.getElementById("map").innerHTML = "<iframe src='https://www.google.com/maps/d/u/0/embed?mid=1zNjb8mjo4CaCL6PG82Spr-5OOWMsd_U&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>";
+            }
+            else if (district ==="Tirupur" && choice.value === "waterfalls") {
+				document.getElementById("map").innerHTML = "<iframe src='https://www.google.com/maps/d/u/0/embed?mid=15eLCAfwcNzIrmef-qADT51R7bLuFBfA&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>";
+			}
+			else if (district === "Erode" && choice.value === "park") {
+                document.getElementById("map").innerHTML = "<iframe src='https://www.google.com/maps/d/u/0/embed?mid=1CNrnW3s042bopodi0AVR1d3uvnwsvsg&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>";
+            }
+			else if (district === "Erode" && choice.value === "dam") {
+                document.getElementById("map").innerHTML = "<iframe src='https://www.google.com/maps/d/u/0/embed?mid=1jPb3PuU8sSCgSmHXdOsQkvWNBt8AQrQ&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>";
+            }
+			else if (district === "Erode" && choice.value === "temple") {
+                document.getElementById("map").innerHTML = "<iframe src='https://www.google.com/maps/d/u/0/embed?mid=1HuPve4_Dv8Tgf796A586hCYX3Z39b1c&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>";
+            }
+            else if (district ==="Erode" && choice.value === "waterfalls") {
+				document.getElementById("map").innerHTML = "<iframe src='https://www.google.com/maps/d/u/0/embed?mid=1lveFzXoX607zUvBb0eS_YjwpL50Nxp0&ehbc=2E312F&noprof=1' width='640' height='480'></iframe>";
+			}
+        }
+
+        function getTirupurRecommendation(choice) {
+            switch (choice) {
+                case "park":
+                    return "<div class='card-container'>" +
+                        "<div class='card'>" +
+                        "<h4>Fun Town</h4>" +
+                        "<img src='fun.jpg' alt='Fun Town'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Fun Town,Valipalayam,Tirupur' target='_blank'>Valipalayam Road, Tirupur</a></p>" +
+						"<a href='https://funtown.co.in/' target='_blank'>more about this...</a>"+
+                        "</div>" +
+						
+                        "<div class='card'>" +
+                        "<h4>Jee Resort</h4>" +
+                        "<img src='jee.jpg' alt='Jee Resort'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Jee resort,Periyapalayam%20Road,Tirupur' target='_blank'>Periyapalayam Road, Tirupur</a></p>" +
+						"<a href='https://www.helpmecovid.com/in/838764_jee-resorts' target='_blank'>more about this...</a>"+
+                        "</div>" +
+						
+                        "<div class='card'>" +
+                        "<h4>Bamboo Park</h4>" +
+                        "<img src='bamboo1.jpg' alt='Bamboo Park'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Bamboo park,Chinnakalipalayam,Tirupur' target='_blank'>Chinnakalipalayam, Tirupur</a></p>" +
+						"<a href='https://www.thehindu.com/news/cities/Coimbatore/eco-park-on-kamarajar-road-thrown-open-to-public-in-tiruppur/article34272098.ece' target='_blank'>more about this...</a>"+
+                        "</div>" +
+						
+                        "</div>";
+						
+                    break;
+                case "dam":
+                    return "<div class='card-container'>" +
+						"<div class='card'>" +
+                        "<h4>Amaravathi Dam</h4>" +
+                        "<img src='ama.jpg' alt='Amaravathi Dam'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Amaravathi Dam,Tirupur' target='_blank'>Udumalpet, Tirupur</a></p>" +
+						"<a href='https://en.wikipedia.org/wiki/Amaravathi_Dam' target='_blank'>more about this...</a>"+
+                        "</div>" +
+                        "<div class='card'>" +
+                        "<h4>Thirumoorthi Dam</h4>" +
+                        "<img src='thiru.jpg' alt='Thirumoorthi Dam'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Thirumoorthi Dam,Tirupur' target='_blank'>Udumalpettai, Tirupur</a></p>" +
+						"<a href='https://en.wikipedia.org/wiki/Thirumoorthy_hills' target='_blank'>more about this...</a>"+
+                        "</div>" +
+						"<div class='card'>" +
+                        "<h4>Uppar Dam</h4>" +
+                        "<img src='up.jpg' alt='Uppar Dam'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Uppar dam,Tirupur' target='_blank'>Dhasarpatty, Tirupur</a></p>" +
+						"<a href='https://en.wikipedia.org/wiki/Uppar_River' target='_blank'>more about this...</a>"+
+                        "</div>" +
+                        "</div>";
+						
+                    break;
+               
+                case "temple":
+                    return  "<div class='card-container'>" +
+                        "<div class='card'>" +
+                        "<h4>Kaithamalai Murugan Temple</h4>" +
+                        "<img src='kai.jpeg' alt='Kaithamalai Murugan Temple'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Kaithamalai murugan temple,Tirupur' target='_blank'>Uthukuli, Tirupur</a></p>" +
+						"<a href='https://tripnetra.com/blog/kaithamalai-murugan-temple' target='_blank'>more about this...</a>"+
+                        "</div>" +
+                        "<div class='card'>" +
+                        "<h4>Sivanmalai Temple</h4>"+
+                        "<img src='siva1.jpeg' alt='Sivanmalai Temple'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Sivanmalai Temple, Kangeyam,Tirupur' target='_blank'>Kangeyam, Tirupur</a></p>" +
+						"<a href='https://ta.wikipedia.org/wiki/%E0%AE%9A%E0%AE%BF%E0%AE%B5%E0%AE%A9%E0%AF%8D%E0%AE%AE%E0%AE%B2%E0%AF%88_%E0%AE%9A%E0%AF%81%E0%AE%AA%E0%AF%8D%E0%AE%AA%E0%AE%BF%E0%AE%B0%E0%AE%AE%E0%AE%A3%E0%AE%BF%E0%AE%AF%E0%AE%B0%E0%AF%8D_%E0%AE%95%E0%AF%8B%E0%AE%AF%E0%AE%BF%E0%AE%B2%E0%AF%8D' target='_blank'>more about this...</a>"+
+                        "</div>" +
+						"<div class='card'>" +
+                        "<h4>Avinashi Lingeshwarar Temple</h4>"+
+                        "<img src='lin.jpg' alt='Avinasi Lingeshwarar Temple'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Avinasi Lingeshwarar Temple, Avinasi,Tirupur' target='_blank'>Avinashi, Tirupur</a></p>" +
+						"<a href='https://en.wikipedia.org/wiki/Tiruppukkozhiyur' target='_blank'>more about this...</a>"+
+                        "</div>" +
+                        "</div>";
+						
+                    break;
+				case "waterfalls":
+                    return "<div class='card-container'>" +
+                        "<div class='card'>" +
+                        "<h4>Panchalinga Waterfalls</h4>" +
+                        "<img src='pan.jpg' alt='Panchalinga Waterfalls'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Panchalingawaterfalls,Tirupur' target='_blank'>Udumalpettai, Tirupur</a></p>" +
+						"<a href='https://tiruppur.nic.in/tourist-place/panchalinga-falls/' target='_blank'>more about this...</a>"+
+                        "</div>" +
+                        "</div>";
+						
+					break;
+                default:
+                    return "Please select a preference.";
+            }
+        }
+		function getErodeRecommendation(choice) {
+            switch (choice) {
+                case "park":
+                    return "<div class='card-container'>" +
+                        "<div class='card'>" +
+                        "<h4>Chill Out</h4>" +
+                        "<img src='chill.jpg' alt='Chill Out'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Chill Out,Erode' target='_blank'>Perundurai, Erode</a></p>" +
+						"<a href='https://www.chillouthub.com/' target='_blank'>more about this...</a>"+
+                        "</div>" +
+                        "<div class='card'>" +
+                        "<h4>VOC Park</h4>" +
+                        "<img src='voc.jpg' alt='VOC Park'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Voc park,Erode' target='_blank'>Thirunagar, Erode</a></p>" +
+						"<a href='https://en.wikipedia.org/wiki/VOC_Park,_Erode#:~:text=V.O.Chidambaranar%20Park%20or%20VOC%20Park%20is%20a%20recreational,park%20was%20previously%20known%20as%20Srinivasaa%20Park%20' target='_blank'>more about this...</a>"+
+                        "</div>" +
+                        "<div class='card'>" +
+                        "<h4>Vellode Bird Sanctuary</h4>" +
+                        "<img src='vellode.jpg' alt='Vellode Bird Sanctuary'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Vellode Bird Sanctuary,Erode' target='_blank'>Perundurai, Erode</a></p>" +
+						"<a href='https://en.wikipedia.org/wiki/Vellode_Bird_Sanctuary' target='_blank'>more about this...</a>"+
+                        "</div>" +
+                        "</div>";
+						
+						break;
+                case "dam":
+                    return "<div class='card-container'>" +
+                         "<div class='card'>" +
+                        "<h4>Bhavanisagar Dam</h4>" +
+                        "<img src='ama.jpg' alt='Bhavanisagar Dam'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Bhavanisagar dam' target='_blank'>Bhavani, Erode</a></p>" +
+						"<a href='https://en.wikipedia.org/wiki/Bhavanisagar_Dam' target='_blank'>more about this...</a>"+
+                        "</div>" +
+                       "<div class='card'>" +
+                        "<h4>Kodiveri Dam</h4>" +
+                        "<img src='kodi.jpg' alt='Kodiveri Dam'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Kodiveri Dam,Erode' target='_blank'>Gobichettipalayam, Erode</a></p>" +
+						"<a href='https://en.wikipedia.org/wiki/Kodiveri_Dam' target='_blank'>more about this...</a>"+
+                        "</div>" +
+                        "</div>";
+						
+						break;
+                case "temple":
+                    return "<div class='card-container'>" +
+                        "<div class='card'>" +
+                        "<h4>Thindal Temple</h4>" +
+                        "<img src='thin.jpg' alt='Thindal Temple'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Thindal murugan temple,Erode' target='_blank'>Thindalmalai,   Erode</a></p>" +
+						"<a href='https://www.erodeonline.in/city-guide/thindal-murugan-temple' target='_blank'>more about this...</a>"+
+                        "</div>" +
+                        "<div class='card'>" +
+                        "<h4>Bannari Mariamman Temple</h4>"+
+                        "<img src='ban.jpg' alt='Bannari Amman Temple'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Bannari_Mariamman_Temple,Erode' target='_blank'>Sathyamangalam, Erode</a></p>" +
+						"<a href='https://en.wikipedia.org/wiki/Bannari_Mariamman_Temple' target='_blank'>more about this...</a>"+
+                        "</div>" +
+						"<div class='card'>" +
+                        "<h4>Jain Temple</h4>"+
+                        "<img src='jain.jpg' alt='Jain Temple'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Jain Temple,Erode' target='_blank'>Teppakulam,     Erode</a></p>" +
+						"<a href='https://www.jainmandir.org/Temple/Shri-Kunthunath-Jain-Shwetamber-Mandir%2c-Teppakulam-Street%2c-Erode-Fort%2c-Erode-(Tamil-Nadu)' target='_blank'>more about this...</a>"+
+                        "</div>" +
+                        "</div>";
+						
+						break;
+
+                case "waterfalls":
+                    return "<div class='card-container'>" +
+                        "<div class='card'>" +
+                        "<h4>Chinnappallam Waterfalls</h4>" +
+                        "<img src='chinna.jpg' alt='Chinnappallam'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Chinnappallam,Erode' target='_blank'>Palamalli, Erode</a></p>" +
+						"<a href='https://www.maalaimalar.com/news/district/erode-newswater-falls-from-a-height-of-60-feet-530875' target='_blank'>more about this...</a>"+
+                        "</div>" +
+						"<div class='card'>" +
+                        "<h4>Eratti Waterfalls</h4>" +
+                        "<img src='era.jpg' alt='Eratti Waterfall'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Eratti Waterfall,Erode' target='_blank'>Thamarakkarai, Erode</a></p>" +
+						"<a href='https://nativenews.in/tamil-nadu/erode/anthiyur/waterfall-in-bargur-hills-1063881#google_vignette' target='_blank'>more about this...</a>"+
+                        "</div>" +
+						
+                        "</div>";
+						
+						break;
+                default:
+                    return "Please select a preference.";
+					
+					break;
+            }
+        }
+		function getCoimbatoreRecommendation(choice) {
+            switch (choice) {
+                case "park":
+                    return "<div class='card-container'>" +
+                        "<div class='card'>" +
+                        "<h4>Shanthi Social service Park</h4>" +
+                        "<img src='shan.jpg' alt='Shanthi Social service Park'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Shanthi Social service Park,Coimbatore' target='_blank'>Neelikonampalayam, Coimbatore</a></p>" +
+						"<a href='http://shanthisocialservices.org/about.html#:~:text=From%201987%2C%20he%20also%20focused,best%20and%20befitting%20manner%20by' target='_blank'>more about this...</a>"+
+                        "</div>" +
+                        "<div class='card'>" +
+                        "<h4>OxyZone Adventure Park</h4>" +
+                        "<img src='ozo.jpg' alt='OxyZone Adventure Park'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=OxyZone Adventure Park,Coimbatore' target='_blank'>Peelamedu, Coimbatore</a></p>" +
+						"<a href='https://www.theoxyzone.com/' target='_blank'>more about this...</a>"+
+                        "</div>" +
+						"<div class='card'>" +
+                        "<h4>Kovai Kondattam Amusement</h4>" +
+                        "<img src='kovai.jpg' alt='Kovai Kondattam Amusement'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Kovai Kondattam Amusement Park,Coimbatore' target='_blank'>Kalampalayam, Coimbatore</a></p>" +
+						"<a href='https://www.kovaikondattam.com/' target='_blank'>more about this...</a>"+
+                        "</div>" +
+						
+                        "</div>";
+						
+						break;
+				case "dam":
+                    return "<div class='card-container'>" +
+                        "<div class='card'>" +
+                        "<h4>Aliyar Dam</h4>" +
+                        "<img src='ali.jpg' alt='Aliyar Dam'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Aliyar Dam, Coimbatore' target='_blank'>Aliyar, Coimbatore</a></p>" +
+						"<a href='https://en.wikipedia.org/wiki/Aliyar_Reservoir' target='_blank'>more about this...</a>"+
+                        "</div>" +
+                        "<div class='card'>" +
+                        "<h4>OxyZone Adventure Park</h4>" +
+                        "<img src='ozo.jpg' alt='OxyZone Adventure Park'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=OxyZone Adventure Park,Coimbatore' target='_blank'>Peelamedu, Coimbatore</a></p>" +
+						"<a href='https://www.theoxyzone.com/' target='_blank'>more about this...</a>"+
+                        "</div>" +
+						"<div class='card'>" +
+                        "<h4>Kovai Kondattam Amusement</h4>" +
+                        "<img src='kovai.jpg' alt='Kovai Kondattam Amusement'>" +
+                        "<p>Location: <a href='https://maps.google.com/?q=Kovai Kondattam Amusement Park,Coimbatore' target='_blank'>Kalampalayam, Coimbatore</a></p>" +
+						"<a href='https://www.kovaikondattam.com/' target='_blank'>more about this...</a>"+
+                        "</div>" +
+						
+                        "</div>";
+						
+						break;
+						
+				default:
+                    return "Please select a preference.";
+					
+					break;
+			}
+		}
+    </script>
+
+</body>
+</html>
